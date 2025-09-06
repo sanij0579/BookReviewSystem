@@ -1,0 +1,37 @@
+{% extends 'book/base.html' %}
+
+{% block title %}Book Detail{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm rounded-3 p-4">
+            <!-- Optional Cover Image -->
+            {% if book.cover %}
+            <img src="{{ book.cover.url }}" class="card-img-top mb-4 rounded-3" alt="{{ book.title }}" style="height: 300px; object-fit: cover;">
+            {% endif %}
+
+            <div class="card-body">
+                <h2 class="card-title mb-2">{{ book.title }}</h2>
+                <h6 class="card-subtitle mb-3 text-muted">by {{ book.author }}</h6>
+                
+                <div class="mb-3">
+                    <span class="badge bg-info text-dark me-2">{{ book.genre|capfirst }}</span>
+                    <span class="badge bg-secondary">ISBN: {{ book.isbn }}</span>
+                </div>
+
+                <p><strong>Publication Date:</strong> {{ book.publication_date }}</p>
+
+                <h5 class="mt-4">Description</h5>
+                <p class="card-text">{{ book.description }}</p>
+
+                <div class="mt-4 d-flex flex-wrap gap-2">
+                    <a href="{% url 'book-update' book.pk %}" class="btn btn-modern">✏️ Edit</a>
+                    <a href="{% url 'book-delete' book.pk %}" class="btn btn-danger">🗑️ Delete</a>
+                    <a href="{% url 'book-list' %}" class="btn btn-secondary">🔙 Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
